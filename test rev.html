@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#070A1A">
+<title>Share your experience</title>
+<meta name="description" content="Tell us how it went — takes about 20 seconds.">
+<style>
+/* ═══════════════════════════════════════════════════════════
+   ROYAL DESIGN TOKENS
+   ═══════════════════════════════════════════════════════════ */
+:root{
+  /* Midnight base */
+  --night-0:#070A1A;
+  --night-1:#0C1130;
+  --royal:#2A2470;
+
+  /* Champagne / gold */
+  --gold:#E3C27E;
+  --gold-hi:#F6E3B4;
+  --gold-deep:#B8912F;
+  --gold-ink:#1C1503;
+  --gold-line:rgba(227,194,126,.24);
+  --gold-line-soft:rgba(227,194,126,.12);
+  --gold-glow:rgba(227,194,126,.22);
+
+  /* Type */
+  --text:#F4F3F8;
+  --text-2:#B9BED4;
+  --text-3:#7F86A3;
+
+  /* Glass */
+  --glass:linear-gradient(180deg, rgba(255,255,255,.062), rgba(255,255,255,.022));
+  --glass-2:rgba(255,255,255,.045);
+
+  /* Business accent — overridden at runtime */
+  --accent:#6C5CE7;
+  --accent-glow:rgba(108,92,231,.30);
+
+  --r-card:30px;
+  --r-ctl:16px;
+  --r-pill:999px;
+
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+
+  --ease:cubic-bezier(.22,.75,.28,1);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;padding:24px 16px calc(24px + env(safe-area-inset-bottom));
+  min-height:100dvh;
+  font-family:var(--sans);
+  color:var(--text);
+  background:
+    radial-gradient(900px 520px at 50% -8%, var(--royal) 0%, transparent 62%),
+    radial-gradient(700px 420px at 100% 100%, rgba(42,36,112,.55) 0%, transparent 60%),
+    linear-gradient(180deg,#0A0E26 0%, var(--night-0) 100%);
+  background-attachment:fixed;
+  display:flex;flex-direction:column;align-items:center;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SHELL + CARD
+   ═══════════════════════════════════════════════════════════ */
+.shell{width:100%;max-width:440px;display:flex;flex-direction:column;flex:1}
+
+.card{
+  position:relative;
+  background:var(--glass);
+  border:1px solid var(--gold-line);
+  border-radius:var(--r-card);
+  padding:30px 22px 26px;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.07) inset,
+    0 -30px 60px -40px var(--accent-glow) inset,
+    0 40px 90px -40px rgba(0,0,0,.95);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  animation:cardIn .6s var(--ease) both;
+  overflow:hidden;
+}
+/* thin gold crest line across the top edge */
+.card::before{
+  content:"";position:absolute;top:0;left:14%;right:14%;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  opacity:.65;
+}
+@keyframes cardIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+/* ═══════════════════════════════════════════════════════════
+   CREST / BUSINESS HEADER
+   ═══════════════════════════════════════════════════════════ */
+.crest{text-align:center;margin:0 0 22px}
+.mark{
+  position:relative;width:66px;height:66px;margin:0 auto 14px;
+  border-radius:20px;
+  background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.03));
+  border:1px solid var(--gold-line);
+  display:grid;place-items:center;
+  font-family:var(--serif);font-size:22px;letter-spacing:.02em;color:var(--gold);
+  overflow:hidden;
+  box-shadow:0 0 0 6px rgba(255,255,255,.02), 0 18px 40px -20px var(--accent-glow);
+}
+.mark img{width:100%;height:100%;object-fit:cover;display:block}
+.biz-name{
+  font-family:var(--serif);font-size:21px;line-height:1.25;font-weight:500;
+  letter-spacing:.005em;margin:0;
+}
+.biz-sub{font-size:12.5px;color:var(--text-3);margin:7px 0 0;letter-spacing:.01em}
+
+.rule{
+  height:1px;margin:22px 0;
+  background:linear-gradient(90deg,transparent,var(--gold-line),transparent);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TYPE
+   ═══════════════════════════════════════════════════════════ */
+h1,h2{font-family:var(--serif);font-weight:500;letter-spacing:.004em;margin:0}
+h1{font-size:24px;line-height:1.3}
+h2{font-size:18.5px;line-height:1.35;margin:0 0 10px}
+.lede{font-size:14.5px;line-height:1.55;color:var(--text-2);margin:8px 0 0}
+
+/* ═══════════════════════════════════════════════════════════
+   STARS — the hero
+   ═══════════════════════════════════════════════════════════ */
+.rate{text-align:center}
+.rate h1{margin-bottom:20px}
+.stars-wrap{position:relative;display:inline-block;border-radius:20px;overflow:hidden;padding:2px}
+.stars{display:flex;justify-content:center;gap:4px}
+.star{
+  -webkit-tap-highlight-color:transparent;
+  appearance:none;background:none;border:0;margin:0;padding:5px;
+  cursor:pointer;line-height:0;border-radius:14px;
+  transition:transform .2s var(--ease);
+}
+.star svg{width:46px;height:46px;display:block}
+.star .body{fill:rgba(255,255,255,.06);stroke:rgba(227,194,126,.34);stroke-width:1.1;transition:fill .22s ease,stroke .22s ease}
+.star.lit .body{fill:url(#goldFill);stroke:var(--gold-hi)}
+.star.lit{filter:drop-shadow(0 3px 12px var(--gold-glow))}
+.star:active{transform:scale(.9)}
+.star.pop{animation:starPop .42s var(--ease)}
+@keyframes starPop{0%{transform:scale(1)}45%{transform:scale(1.22)}100%{transform:scale(1)}}
+.star:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+/* one-time gold shimmer sweep across the row */
+.stars-wrap.sweep::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.55) 50%,transparent 65%);
+  transform:translateX(-120%);
+  animation:sweep .85s var(--ease) forwards;
+  mix-blend-mode:overlay;
+}
+@keyframes sweep{to{transform:translateX(120%)}}
+
+.verdict{
+  margin:14px 0 0;min-height:24px;
+  font-family:var(--serif);font-size:16.5px;color:var(--text-3);
+  transition:color .25s ease;
+}
+.verdict.set{color:var(--gold-hi)}
+
+/* compact star strip for the review state */
+.strip{display:flex;justify-content:center;gap:3px;margin:0 0 14px}
+.strip svg{width:17px;height:17px}
+.strip .body{fill:var(--gold);stroke:none}
+
+/* ═══════════════════════════════════════════════════════════
+   REVEAL PANELS
+   ═══════════════════════════════════════════════════════════ */
+.panel{display:none}
+.panel.open{display:block;animation:reveal .42s var(--ease) both}
+@keyframes reveal{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+.field{margin:0 0 16px}
+.label{display:block;font-size:13.5px;font-weight:600;color:var(--text-2);margin:0 0 9px;letter-spacing:.01em}
+.label .opt{font-weight:400;color:var(--text-3)}
+
+textarea,input[type="text"],input[type="url"]{
+  width:100%;font-family:inherit;font-size:16px;color:var(--text);
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.11);
+  border-radius:var(--r-ctl);
+  padding:14px 15px;
+  transition:border-color .2s ease,box-shadow .2s ease,background .2s ease;
+}
+textarea{min-height:104px;line-height:1.6;resize:vertical}
+textarea:focus,input:focus{
+  outline:none;border-color:var(--gold-line);
+  background:rgba(255,255,255,.06);
+  box-shadow:0 0 0 3px rgba(227,194,126,.10);
+}
+textarea::placeholder,input::placeholder{color:var(--text-3)}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{
+  -webkit-tap-highlight-color:transparent;
+  appearance:none;cursor:pointer;font-family:inherit;font-size:14px;font-weight:500;
+  color:var(--text-2);background:rgba(255,255,255,.035);
+  border:1px solid rgba(255,255,255,.12);border-radius:var(--r-pill);
+  padding:9px 15px;min-height:40px;
+  transition:all .18s var(--ease);
+}
+.chip:active{transform:scale(.95)}
+.chip[aria-pressed="true"]{
+  color:var(--gold-hi);
+  background:linear-gradient(180deg, rgba(227,194,126,.16), rgba(227,194,126,.07));
+  border-color:var(--gold-line);
+  box-shadow:0 0 18px -6px var(--gold-glow);
+}
+.chip:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+/* ═══════════════════════════════════════════════════════════
+   BUTTONS
+   ═══════════════════════════════════════════════════════════ */
+.btn{
+  -webkit-tap-highlight-color:transparent;
+  display:flex;align-items:center;justify-content:center;gap:9px;
+  width:100%;min-height:56px;padding:15px 18px;margin:0;
+  font-family:inherit;font-size:16.5px;font-weight:650;letter-spacing:.005em;
+  color:var(--gold-ink);
+  background:linear-gradient(180deg,var(--gold-hi) 0%,var(--gold) 45%,var(--gold-deep) 100%);
+  border:0;border-radius:var(--r-ctl);cursor:pointer;
+  box-shadow:0 1px 0 rgba(255,255,255,.45) inset, 0 14px 34px -16px var(--gold-glow);
+  transition:transform .14s var(--ease),opacity .2s ease;
+}
+.btn:active{transform:scale(.985)}
+.btn:disabled{opacity:.34;box-shadow:none;cursor:not-allowed}
+.btn:focus-visible{outline:2px solid var(--gold-hi);outline-offset:3px}
+
+.btn-ghost{
+  background:rgba(255,255,255,.045);color:var(--text-2);
+  border:1px solid rgba(255,255,255,.13);
+  box-shadow:none;min-height:48px;font-size:15px;font-weight:560;
+}
+
+.btn-text{
+  appearance:none;background:none;border:0;cursor:pointer;width:100%;
+  font-family:inherit;font-size:14px;font-weight:540;color:var(--text-3);
+  padding:13px 8px;border-radius:10px;
+}
+.btn-text:hover{color:var(--text-2)}
+.btn-text:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+.actions{margin-top:20px;display:flex;flex-direction:column;gap:8px}
+
+/* ═══════════════════════════════════════════════════════════
+   PHOTOS — compact
+   ═══════════════════════════════════════════════════════════ */
+.photo-row{
+  display:flex;align-items:center;gap:12px;width:100%;
+  padding:13px 15px;min-height:52px;text-align:left;font-family:inherit;
+  background:rgba(255,255,255,.035);
+  border:1px dashed rgba(227,194,126,.28);
+  border-radius:var(--r-ctl);cursor:pointer;color:var(--text-2);font-size:15px;
+  transition:border-color .2s ease,background .2s ease;
+}
+.photo-row:hover:not(:disabled),.photo-row:focus-visible{border-color:var(--gold);background:rgba(227,194,126,.07)}
+.photo-row:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.photo-row:disabled{opacity:.5;cursor:not-allowed}
+.photo-row .tail{margin-left:auto;font-size:12.5px;color:var(--text-3)}
+
+.thumbs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:9px}
+.thumbs:empty{display:none}
+.thumb{
+  position:relative;aspect-ratio:1;border-radius:13px;overflow:hidden;
+  border:1px solid var(--gold-line-soft);
+  animation:reveal .3s var(--ease) both;
+}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.thumb button{
+  position:absolute;top:5px;right:5px;width:26px;height:26px;
+  border:0;border-radius:50%;cursor:pointer;
+  background:rgba(7,10,26,.8);color:var(--gold-hi);font-size:15px;line-height:1;
+  display:grid;place-items:center;backdrop-filter:blur(4px);
+}
+.thumb button:focus-visible{outline:2px solid var(--gold);outline-offset:1px}
+
+/* ═══════════════════════════════════════════════════════════
+   GENERATING
+   ═══════════════════════════════════════════════════════════ */
+.gen{padding:16px 0 4px;text-align:center}
+.gen-lines{display:flex;flex-direction:column;gap:10px;margin:0 0 18px}
+.gen-lines i{
+  height:12px;border-radius:6px;
+  background:linear-gradient(90deg,rgba(255,255,255,.05) 0%,rgba(227,194,126,.22) 45%,rgba(255,255,255,.05) 90%);
+  background-size:220% 100%;
+  animation:shimmer 1.15s linear infinite;
+}
+.gen-lines i:nth-child(2){width:88%;animation-delay:.1s}
+.gen-lines i:nth-child(3){width:62%;animation-delay:.2s}
+@keyframes shimmer{from{background-position:130% 0}to{background-position:-130% 0}}
+.gen-status{font-family:var(--serif);font-size:15.5px;color:var(--gold);margin:0}
+
+/* ═══════════════════════════════════════════════════════════
+   REVIEW STATE
+   ═══════════════════════════════════════════════════════════ */
+.review-head{text-align:center;margin:0 0 16px}
+#reviewText{min-height:158px;font-size:16px;line-height:1.62}
+.photo-note{
+  display:flex;align-items:center;gap:8px;
+  font-size:13.5px;color:var(--gold);margin:11px 0 0;
+}
+.helper{
+  font-size:12.5px;color:var(--text-3);text-align:center;
+  margin:12px 0 0;line-height:1.5;
+}
+.helper.copied{color:var(--gold)}
+
+/* ═══════════════════════════════════════════════════════════
+   THANK YOU
+   ═══════════════════════════════════════════════════════════ */
+.done{text-align:center;padding:14px 0 6px}
+.seal{
+  width:70px;height:70px;margin:0 auto 20px;border-radius:50%;
+  border:1px solid var(--gold-line);
+  background:radial-gradient(circle at 50% 30%, rgba(227,194,126,.22), rgba(255,255,255,.02));
+  display:grid;place-items:center;font-size:28px;color:var(--gold-hi);
+  box-shadow:0 0 40px -12px var(--gold-glow);
+  animation:seal .6s var(--ease) both;
+}
+@keyframes seal{from{opacity:0;transform:scale(.82)}to{opacity:1;transform:none}}
+
+/* ═══════════════════════════════════════════════════════════
+   SETUP PANEL (business owner)
+   ═══════════════════════════════════════════════════════════ */
+.setup{
+  margin-top:14px;padding:20px;
+  background:var(--glass);border:1px solid var(--gold-line-soft);border-radius:22px;
+  animation:reveal .4s var(--ease) both;
+}
+.setup h2{font-size:17px;margin-bottom:4px}
+.setup .lede{font-size:13px;margin-bottom:16px}
+.snippet{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:11.5px;line-height:1.65;color:var(--gold);
+  background:rgba(0,0,0,.35);border:1px solid var(--gold-line-soft);
+  border-radius:12px;padding:13px;margin:14px 0 0;
+  white-space:pre;overflow-x:auto;
+}
+.ok{font-size:12.5px;color:var(--gold);margin:10px 0 0;min-height:18px}
+
+/* ═══════════════════════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════════════════════ */
+.foot{
+  text-align:center;margin-top:auto;padding:22px 8px 4px;
+  font-size:11.5px;color:rgba(127,134,163,.75);letter-spacing:.04em;
+}
+.foot b{font-weight:600;color:var(--text-3)}
+.foot a{color:inherit;text-decoration:none;border-bottom:1px solid var(--gold-line-soft)}
+
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+@media (max-width:360px){
+  .card{padding:26px 18px 22px}
+  .star svg{width:39px;height:39px}
+  .star{padding:3px}
+  h1{font-size:22px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important}
+}
+</style>
+</head>
+<body>
+
+<!-- shared gold gradient for the stars -->
+<svg width="0" height="0" aria-hidden="true" style="position:absolute">
+  <defs>
+    <linearGradient id="goldFill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F6E3B4"/>
+      <stop offset="55%" stop-color="#E3C27E"/>
+      <stop offset="100%" stop-color="#B8912F"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<div class="shell">
+  <main class="card">
+
+    <div class="crest">
+      <div class="mark" id="mark"></div>
+      <p class="biz-name" id="bizName">Loading…</p>
+      <p class="biz-sub" id="bizSub">Takes about 20 seconds</p>
+    </div>
+
+    <!-- ── STATE 1: RATE + DYNAMIC REVEAL ─────────────────── -->
+    <section id="stateRate">
+      <div class="rate">
+        <h1 id="rateTitle">How was your experience?</h1>
+        <div class="stars-wrap" id="starsWrap">
+          <div class="stars" id="stars" role="radiogroup" aria-label="Rating out of five stars"></div>
+        </div>
+        <p class="verdict" id="verdict">Tap to rate</p>
+      </div>
+
+      <!-- 4–5 stars -->
+      <div class="panel" id="panelHigh">
+        <div class="rule"></div>
+        <div class="field">
+          <label class="label" for="highText">Tell us about your experience</label>
+          <textarea id="highText" placeholder="Tell us what you loved about your experience..."></textarea>
+        </div>
+        <div class="field">
+          <div class="chips" id="highChips"></div>
+        </div>
+        <div class="field">
+          <span class="label">Add a photo 📸 <span class="opt">— optional</span></span>
+          <button class="photo-row" id="photoBtn" type="button">
+            <span aria-hidden="true">📸</span>
+            <span id="photoLabel">Add photos</span>
+            <span class="tail" id="photoTail">up to 3</span>
+          </button>
+          <input type="file" id="photoInput" class="sr" accept="image/jpeg,image/jpg,image/png,image/webp" multiple>
+          <div class="thumbs" id="thumbs"></div>
+        </div>
+        <div class="actions">
+          <button class="btn" id="generateBtn" disabled>✨ Generate My Review</button>
+        </div>
+      </div>
+
+      <!-- 1–2 stars -->
+      <div class="panel" id="panelLow">
+        <div class="rule"></div>
+        <h2>We're sorry your experience wasn't what you expected.</h2>
+        <p class="lede" style="margin-bottom:18px">This goes straight to the owner. It isn't posted publicly.</p>
+        <div class="field">
+          <label class="label sr" for="lowText">What went wrong?</label>
+          <textarea id="lowText" placeholder="What went wrong?"></textarea>
+        </div>
+        <div class="field">
+          <label class="label" for="lowContact">Would you like us to contact you? <span class="opt">— optional</span></label>
+          <input type="text" id="lowContact" placeholder="Phone or email" autocomplete="tel">
+        </div>
+        <div class="actions">
+          <button class="btn" id="lowBtn" disabled>Send Private Feedback</button>
+        </div>
+      </div>
+
+      <!-- 3 stars -->
+      <div class="panel" id="panelMid">
+        <div class="rule"></div>
+        <h2>Thanks for your feedback.</h2>
+        <p class="lede" style="margin-bottom:18px">How could we make your experience better?</p>
+        <div class="field">
+          <label class="label sr" for="midText">How could we make your experience better?</label>
+          <textarea id="midText" placeholder="In your own words…"></textarea>
+        </div>
+        <div class="field">
+          <label class="label" for="midContact">Would you like us to contact you? <span class="opt">— optional</span></label>
+          <input type="text" id="midContact" placeholder="Phone or email" autocomplete="tel">
+        </div>
+        <div class="actions">
+          <button class="btn" id="midBtn" disabled>Send Feedback</button>
+        </div>
+      </div>
+
+      <!-- inline generation -->
+      <div class="panel" id="panelGen">
+        <div class="rule"></div>
+        <div class="gen">
+          <div class="gen-lines" aria-hidden="true"><i></i><i></i><i></i></div>
+          <p class="gen-status" id="genStatus" role="status">Crafting your review…</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── STATE 2: GENERATED REVIEW ──────────────────────── -->
+    <section id="stateReview" hidden>
+      <div class="strip" id="strip" aria-hidden="true"></div>
+      <div class="review-head"><h1>✨ Your Review</h1></div>
+      <label class="sr" for="reviewText">Your review — edit it freely</label>
+      <textarea id="reviewText"></textarea>
+      <p class="photo-note" id="photoNote" hidden><span aria-hidden="true">📸</span><span id="photoNoteText"></span></p>
+      <div class="actions">
+        <button class="btn" id="googleBtn">⭐ Continue to Google Reviews</button>
+        <button class="btn-text" id="editBtn">Edit review</button>
+      </div>
+      <p class="helper" id="helper">Your review will be copied automatically.</p>
+    </section>
+
+    <!-- ── STATE 3: THANK YOU ─────────────────────────────── -->
+    <section id="stateDone" hidden>
+      <div class="done">
+        <div class="seal" aria-hidden="true">✦</div>
+        <h1 id="doneTitle">Thank you</h1>
+        <p class="lede" id="doneLede"></p>
+      </div>
+      <div class="actions" id="doneActions" hidden>
+        <button class="btn btn-ghost" id="doneGoogle">Leave a public review too</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── BUSINESS OWNER SETUP (hidden from customers) ──────── -->
+  <section class="setup" id="setup" hidden aria-labelledby="setupTitle">
+    <h2 id="setupTitle">Google Review Link</h2>
+    <p class="lede">Paste your Google review URL here</p>
+    <label class="sr" for="reviewUrl">Google review URL</label>
+    <input type="url" id="reviewUrl" placeholder="https://productmate.com/google-review-link-generator" inputmode="url" autocomplete="off">
+    <div class="actions">
+      <button class="btn btn-ghost" id="applyUrl">Use this link</button>
+    </div>
+    <p class="ok" id="setupOk"></p>
+    <pre class="snippet" id="snippet"></pre>
+    <p class="lede" style="font-size:12px;margin-top:12px">Applies instantly for this session. Paste the snippet into the <code>businesses</code> object in index.html to make it permanent.</p>
+  </section>
+
+  <p class="foot">
+    Powered by <b>Specter Automations</b>
+    <span id="setupLinkWrap" hidden> · <a href="#" id="setupLink">Business setup</a></span>
+  </p>
+</div>
+
+<script>
+"use strict";
+
+/* ═══════════════════════════════════════════════════════════
+   1 · BUSINESS CONFIGURATION
+   ═══════════════════════════════════════════════════════════
+   One entry per client. The NFC tag points at:
+      https://reviews.specterautomations.in/?business=clinic123
+
+   👉 PASTE YOUR GOOGLE REVIEW LINK IN `googleReviewUrl` BELOW.
+      Generate it externally (e.g. a review-link generator or
+      Google Business Profile → Ask for reviews), then paste the
+      final URL here. It looks like:
+      https://search.google.com/local/writereview?placeid=ChIJ...
+   ═══════════════════════════════════════════════════════════ */
+const businesses = {
+
+  clinic123: {
+    name: "Sunrise Dental Care",
+    logo: "assets/clinic-logo.png",
+    primaryColor: "#0E7C86",
+    googleReviewUrl: "https://search.google.com/local/writereview?placeid=ChIJ__-vIIEVrjsRrr6kyZ-ghLU",   // 👈 YOUR GOOGLE REVIEW LINK
+    noun: "visit",
+    alwaysOfferGoogleLink: false
+  },
+
+  business456: {
+    name: "Harbour Lane Salon",
+    logo: "assets/business-logo.png",
+    primaryColor: "#B4457A",
+    googleReviewUrl: "PASTE_GOOGLE_REVIEW_URL_HERE",   // 👈 PASTE YOUR GOOGLE REVIEW LINK HERE
+    noun: "appointment",
+    alwaysOfferGoogleLink: false
+  }
+
+};
+
+/* Shown when the URL has no ?business= parameter. */
+const DEFAULT_BUSINESS = {
+  name: "Specter Automations",
+  logo: null,
+  primaryColor: "#6C5CE7",
+  googleReviewUrl: "https://search.google.com/local/writereview?placeid=ChIJ__-vIIEVrjsRrr6kyZ-ghLU",     // 👈 YOUR GOOGLE REVIEW LINK
+  noun: "experience",
+  demo: true,
+  alwaysOfferGoogleLink: false
+};
+
+const PLACEHOLDER_URL = "PASTE_GOOGLE_REVIEW_URL_HERE";
+
+/* Quick-select tags and how each is phrased in a review. */
+const TAGS = {
+  "Friendly staff":  "the staff were friendly",
+  "Great service":   "the service was excellent",
+  "Fast":            "everything was quick",
+  "Professional":    "the team was professional",
+  "Clean":           "the place was spotless",
+  "Great value":     "it was great value"
+};
+
+/* ═══════════════════════════════════════════════════════════
+   2 · BACKEND INTEGRATION POINTS
+   The only network boundary. Swap the mock bodies for fetch().
+   ═══════════════════════════════════════════════════════════ */
+const SpecterAPI = {
+  /* → POST /api/reviews/generate  { rating, notes, tags, business } */
+  async generateReview(payload){
+    await wait(900 + Math.random()*250);
+    return { review: composeReview(payload) };
+  },
+
+  /* → POST /api/reviews/photos  (multipart) */
+  async uploadPhotos(files){
+    await wait(150);
+    return { urls: files.map(f => "local://" + f.name) };
+  },
+
+  /* → POST /api/feedback  (private, never published) */
+  async submitFeedback(data){
+    await wait(500);
+    console.info("[mock] feedback", data);
+    return { ok:true, id:"mock_" + Date.now() };
+  },
+
+  /* → POST /api/events */
+  trackEvent(name, props){ console.info("[mock] event", name, props || {}); }
+};
+
+/* ═══════════════════════════════════════════════════════════
+   3 · STATE + HELPERS
+   ═══════════════════════════════════════════════════════════ */
+const state = {
+  business:null, rating:0, tags:[], notes:"", review:"", photos:[], variant:0
+};
+
+const $  = s => document.querySelector(s);
+const $$ = s => Array.prototype.slice.call(document.querySelectorAll(s));
+const wait = ms => new Promise(r => setTimeout(r, ms));
+
+/* ═══════════════════════════════════════════════════════════
+   4 · BUSINESS DETECTION FROM URL + THEMING
+   ═══════════════════════════════════════════════════════════ */
+function resolveBusiness(){
+  const slug = new URLSearchParams(location.search).get("business");
+  const found = slug && businesses[slug];
+  return found ? Object.assign({ slug:slug }, found) : Object.assign({ slug:null }, DEFAULT_BUSINESS);
+}
+
+function hexToRgb(hex){
+  const h = String(hex || "").replace("#","");
+  const n = h.length === 3 ? h.split("").map(c=>c+c).join("") : h;
+  const v = [parseInt(n.slice(0,2),16), parseInt(n.slice(2,4),16), parseInt(n.slice(4,6),16)];
+  return v.some(isNaN) ? [108,92,231] : v;
+}
+
+function applyTheme(biz){
+  const [r,g,b] = hexToRgb(biz.primaryColor);
+  const s = document.documentElement.style;
+  s.setProperty("--accent", biz.primaryColor || "#6C5CE7");
+  s.setProperty("--accent-glow", `rgba(${r},${g},${b},.34)`);
+  s.setProperty("--royal", `rgb(${Math.round(r*.34+26)},${Math.round(g*.34+22)},${Math.round(b*.40+52)})`);
+}
+
+function initials(name){
+  return name.split(/\s+/).slice(0,2).map(w=>w[0]).join("").toUpperCase();
+}
+
+function initBusiness(){
+  const biz = resolveBusiness();
+  state.business = biz;
+  applyTheme(biz);
+
+  $("#bizName").textContent = biz.name;
+  $("#bizSub").textContent  = biz.demo ? "Demo · add ?business=clinic123 to the link" : "Takes about 20 seconds";
+  $("#rateTitle").textContent = biz.noun === "visit" ? "How was your visit?" : "How was your experience?";
+  document.title = "Share your experience · " + biz.name;
+
+  const mark = $("#mark");
+  mark.textContent = initials(biz.name);
+  if (biz.logo){
+    const img = new Image();
+    img.alt = "";
+    img.onload = () => { mark.textContent = ""; mark.appendChild(img); };
+    img.src = biz.logo;
+  }
+
+  // Setup panel: open with ?setup=1, or via the footer link in demo mode.
+  $("#reviewUrl").value = biz.googleReviewUrl === PLACEHOLDER_URL ? "" : biz.googleReviewUrl;
+  renderSnippet();
+  if (new URLSearchParams(location.search).get("setup") === "1") $("#setup").hidden = false;
+  else $("#setupLinkWrap").hidden = false;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   5 · STARS
+   ═══════════════════════════════════════════════════════════ */
+const VERDICT = ["","Not good","Below expectations","It was okay","Great","Loved it"];
+const STAR_D = "M12 2.4l2.95 6.02 6.65.97-4.81 4.68 1.14 6.61L12 17.56 6.07 20.68l1.14-6.61L2.4 9.39l6.65-.97L12 2.4z";
+
+function starSVG(){
+  return '<svg viewBox="0 0 24 24" aria-hidden="true"><path class="body" d="'+STAR_D+'"/></svg>';
+}
+
+function buildStars(){
+  const wrap = $("#stars");
+  for (let i=1;i<=5;i++){
+    const b = document.createElement("button");
+    b.className = "star"; b.type = "button";
+    b.setAttribute("role","radio");
+    b.setAttribute("aria-checked","false");
+    b.setAttribute("aria-label", i + (i===1?" star":" stars"));
+    b.tabIndex = i===1 ? 0 : -1;
+    b.innerHTML = starSVG();
+    b.addEventListener("click", () => setRating(i));
+    b.addEventListener("pointerenter", () => paintStars(i));
+    b.addEventListener("pointerleave", () => paintStars(state.rating));
+    b.addEventListener("keydown", e => {
+      if (e.key === "ArrowRight" || e.key === "ArrowUp"){ e.preventDefault(); jump(Math.min(5,i+1)); }
+      if (e.key === "ArrowLeft"  || e.key === "ArrowDown"){ e.preventDefault(); jump(Math.max(1,i-1)); }
+    });
+    wrap.appendChild(b);
+  }
+}
+
+function jump(n){ const b = $$(".star")[n-1]; if (b){ b.focus(); paintStars(n); } }
+
+function paintStars(n){
+  $$(".star").forEach((b,i) => b.classList.toggle("lit", i < n));
+  const v = $("#verdict");
+  v.textContent = n ? VERDICT[n] : "Tap to rate";
+  v.classList.toggle("set", !!n);
+}
+
+function branchOf(r){ return r >= 4 ? "high" : (r === 3 ? "mid" : "low"); }
+
+function setRating(n){
+  const changed = state.rating && branchOf(state.rating) !== branchOf(n);
+  if (changed) resetPanels();
+
+  state.rating = n;
+  $$(".star").forEach((b,i) => {
+    b.setAttribute("aria-checked", i === n-1 ? "true":"false");
+    b.tabIndex = i === n-1 ? 0 : -1;
+  });
+  paintStars(n);
+
+  const hit = $$(".star")[n-1];
+  hit.classList.remove("pop"); void hit.offsetWidth; hit.classList.add("pop");
+  const wrap = $("#starsWrap");
+  wrap.classList.remove("sweep"); void wrap.offsetWidth; wrap.classList.add("sweep");
+
+  SpecterAPI.trackEvent("rating_selected", { rating:n });
+  openPanel(branchOf(n));
+}
+
+function resetPanels(){
+  state.tags.length = 0;
+  $$(".chip").forEach(c => c.setAttribute("aria-pressed","false"));
+  ["#generateBtn","#lowBtn","#midBtn"].forEach(s => { $(s).disabled = true; });
+}
+
+function openPanel(which){
+  $$(".panel").forEach(p => p.classList.remove("open"));
+  const map = { high:"#panelHigh", mid:"#panelMid", low:"#panelLow", gen:"#panelGen" };
+  const el = $(map[which]);
+  if (!el) return;
+  el.classList.add("open");
+  // Nudge the newly revealed content into view without yanking the stars away.
+  setTimeout(() => el.scrollIntoView({ behavior:"smooth", block:"nearest" }), 90);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   6 · TAGS
+   ═══════════════════════════════════════════════════════════ */
+function buildChips(){
+  const wrap = $("#highChips");
+  Object.keys(TAGS).forEach(text => {
+    const b = document.createElement("button");
+    b.className = "chip"; b.type = "button"; b.textContent = text;
+    b.setAttribute("aria-pressed","false");
+    b.addEventListener("click", () => {
+      const on = b.getAttribute("aria-pressed") === "true";
+      b.setAttribute("aria-pressed", on ? "false":"true");
+      const i = state.tags.indexOf(text);
+      if (on){ if (i > -1) state.tags.splice(i,1); }
+      else if (i === -1){ state.tags.push(text); }
+      validate();
+    });
+    wrap.appendChild(b);
+  });
+}
+
+function validate(){
+  $("#generateBtn").disabled = !(state.tags.length || $("#highText").value.trim().length > 2);
+  $("#lowBtn").disabled = $("#lowText").value.trim().length < 3;
+  $("#midBtn").disabled = $("#midText").value.trim().length < 3;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   7 · MOCK AI WRITER
+   Composes ONLY from the rating, the customer's own words and
+   the tags they picked. Never invents people, services or events.
+   ═══════════════════════════════════════════════════════════ */
+const OPENERS = {
+  5:["Had a really great experience at {b}.","Genuinely happy with {b}.","Excellent experience at {b}."],
+  4:["Had a good experience at {b}.","Happy with my {n} at {b}.","Good {n} at {b}."]
+};
+const CLOSERS = {
+  5:["Really happy with the service!","Would definitely recommend.","I'll be back for sure."],
+  4:["Would recommend.","Happy with how it went.","Worth a visit."]
+};
+
+function joinList(a){
+  if (a.length === 1) return a[0];
+  if (a.length === 2) return a[0] + " and " + a[1];
+  return a.slice(0,-1).join(", ") + " and " + a[a.length-1];
+}
+const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
+
+function tidy(t){
+  let s = String(t||"").trim().replace(/\s+/g," ");
+  if (!s) return "";
+  s = cap(s);
+  if (!/[.!?]$/.test(s)) s += ".";
+  return s;
+}
+
+function composeReview(p){
+  const pick = a => a[(p.variant||0) % a.length];
+  const parts = [];
+  parts.push(pick(OPENERS[p.rating] || OPENERS[4]).replace("{b}", p.businessName).replace("{n}", p.noun));
+
+  const note = tidy(p.notes);
+  if (note) parts.push(note);
+
+  const phrases = p.tags.map(t => TAGS[t] || t.toLowerCase());
+  if (phrases.length) parts.push(cap(joinList(phrases)) + ".");
+
+  parts.push(pick(CLOSERS[p.rating] || CLOSERS[4]));
+  return parts.join(" ");
+}
+
+const GEN_MSGS = ["Crafting your review…","Polishing your words…","Almost ready…"];
+
+async function generate(){
+  state.notes = $("#highText").value.trim();
+  openPanel("gen");
+
+  let i = 0;
+  const status = $("#genStatus");
+  const tick = setInterval(() => { i = (i+1) % GEN_MSGS.length; status.textContent = GEN_MSGS[i]; }, 420);
+
+  let review;
+  try {
+    const res = await SpecterAPI.generateReview({
+      rating: state.rating, notes: state.notes, tags: state.tags,
+      businessName: state.business.name, noun: state.business.noun || "visit",
+      variant: state.variant
+    });
+    review = res.review;
+  } catch (e){
+    console.error(e);
+    review = composeReview({
+      rating: state.rating, notes: state.notes, tags: state.tags,
+      businessName: state.business.name, noun: state.business.noun || "visit", variant: 0
+    });
+  }
+  clearInterval(tick);
+
+  state.review = review;
+  if (state.photos.length) SpecterAPI.uploadPhotos(state.photos.map(p => p.file));
+  showReview();
+}
+
+/* ═══════════════════════════════════════════════════════════
+   8 · STATE SWITCHING (three states, no navigation)
+   ═══════════════════════════════════════════════════════════ */
+function setState(name){
+  $("#stateRate").hidden   = name !== "rate";
+  $("#stateReview").hidden = name !== "review";
+  $("#stateDone").hidden   = name !== "done";
+  window.scrollTo({ top:0, behavior:"smooth" });
+  SpecterAPI.trackEvent("state_view", { state:name, rating:state.rating });
+}
+
+function showReview(){
+  const strip = $("#strip");
+  strip.innerHTML = "";
+  for (let i=0;i<state.rating;i++) strip.insertAdjacentHTML("beforeend", starSVG());
+
+  $("#reviewText").value = state.review;
+  const n = state.photos.length;
+  $("#photoNote").hidden = n === 0;
+  $("#photoNoteText").textContent = n + (n === 1 ? " photo selected" : " photos selected");
+  setState("review");
+}
+
+/* ═══════════════════════════════════════════════════════════
+   9 · PHOTOS — isolated from review logic
+   ═══════════════════════════════════════════════════════════ */
+const MAX_PHOTOS = 3;
+const ALLOWED = ["image/jpeg","image/jpg","image/png","image/webp"];
+
+function handlePhotoUpload(files){
+  const incoming = Array.prototype.slice.call(files);
+  const room = MAX_PHOTOS - state.photos.length;
+  const accepted = incoming.filter(f => ALLOWED.indexOf(f.type) > -1).slice(0, room);
+  accepted.forEach(f => state.photos.push({ file:f, url:URL.createObjectURL(f) }));
+
+  const skipped = incoming.length - accepted.length;
+  renderThumbs(skipped > 0 ? (room <= 0 ? "3 is the limit" : "JPG, PNG or WEBP only") : "");
+  SpecterAPI.trackEvent("photos_selected", { count:state.photos.length });
+}
+
+function removePhoto(i){
+  URL.revokeObjectURL(state.photos[i].url);
+  state.photos.splice(i,1);
+  renderThumbs("");
+}
+
+function renderThumbs(msg){
+  const wrap = $("#thumbs");
+  wrap.innerHTML = "";
+  state.photos.forEach((p,i) => {
+    const d = document.createElement("div");
+    d.className = "thumb";
+    const img = new Image(); img.src = p.url; img.alt = "Selected photo " + (i+1);
+    const x = document.createElement("button");
+    x.type = "button"; x.textContent = "×";
+    x.setAttribute("aria-label","Remove photo " + (i+1));
+    x.addEventListener("click", () => removePhoto(i));
+    d.appendChild(img); d.appendChild(x);
+    wrap.appendChild(d);
+  });
+
+  const n = state.photos.length, full = n >= MAX_PHOTOS;
+  $("#photoBtn").disabled = full;
+  $("#photoLabel").textContent = n ? (full ? "3 photos added" : "Add another photo") : "Add photos";
+  $("#photoTail").textContent = msg || (n ? n + " of 3" : "up to 3");
+}
+
+/* ═══════════════════════════════════════════════════════════
+   10 · CLIPBOARD + GOOGLE
+   ═══════════════════════════════════════════════════════════ */
+function copyText(text){
+  if (navigator.clipboard && navigator.clipboard.writeText){
+    return navigator.clipboard.writeText(text).catch(fallbackCopy.bind(null, text));
+  }
+  return Promise.resolve(fallbackCopy(text));
+}
+
+function fallbackCopy(text){
+  const ta = document.createElement("textarea");
+  ta.value = text; ta.setAttribute("readonly","");
+  ta.style.position = "fixed"; ta.style.top = "0"; ta.style.opacity = "0";
+  document.body.appendChild(ta);
+  ta.select(); ta.setSelectionRange(0, text.length);
+  try { document.execCommand("copy"); } catch (e){ /* clipboard unavailable */ }
+  document.body.removeChild(ta);
+}
+
+function resolvedGoogleUrl(){
+  const url = state.business.googleReviewUrl;
+  return (!url || url === PLACEHOLDER_URL) ? null : url;
+}
+
+async function continueToGoogle(){
+  state.review = $("#reviewText").value.trim();
+  const url = resolvedGoogleUrl();
+  const helper = $("#helper");
+
+  await copyText(state.review);
+  helper.classList.add("copied");
+  helper.textContent = state.photos.length
+    ? "Your review has been copied. Paste it into Google and add your photos."
+    : "Your review has been copied. Paste it into Google.";
+
+  SpecterAPI.trackEvent("google_redirect", { rating:state.rating, photos:state.photos.length });
+
+  if (!url){
+    helper.classList.remove("copied");
+    helper.textContent = "No Google review link is set for this business yet. Add it in Business setup.";
+    return;
+  }
+
+  setTimeout(() => {
+    window.open(url, "_blank", "noopener");
+    $("#doneTitle").textContent = "Thank you";
+    $("#doneLede").textContent = "Your review is on your clipboard — paste it into Google. It means a lot to a small business.";
+    $("#doneActions").hidden = true;
+    setState("done");
+  }, 700);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   11 · PRIVATE FEEDBACK
+   ═══════════════════════════════════════════════════════════ */
+function sendFeedback(kind){
+  const low = kind === "low";
+  const btn = $(low ? "#lowBtn" : "#midBtn");
+  const original = btn.textContent;
+  btn.disabled = true; btn.textContent = "Sending…";
+
+  const payload = {
+    type: low ? "private_negative" : "neutral",
+    business: state.business.name,
+    slug: state.business.slug,
+    rating: state.rating,
+    comments: $(low ? "#lowText" : "#midText").value.trim(),
+    contact: $(low ? "#lowContact" : "#midContact").value.trim(),
+    at: new Date().toISOString()
+  };
+
+  SpecterAPI.submitFeedback(payload).then(() => {
+    $("#doneTitle").textContent = "Thank you";
+    $("#doneLede").textContent = payload.contact
+      ? "This went straight to the team. Someone will get back to you."
+      : "This went straight to the team. We appreciate you taking the time.";
+    $("#doneActions").hidden = !(state.business.alwaysOfferGoogleLink && resolvedGoogleUrl());
+    setState("done");
+  }).catch(() => {
+    btn.disabled = false; btn.textContent = original;
+    const holder = btn.parentNode;
+    let err = holder.querySelector(".send-error");
+    if (!err){
+      err = document.createElement("p");
+      err.className = "helper send-error";
+      holder.appendChild(err);
+    }
+    err.textContent = "That didn't send. Check your connection and try again.";
+  });
+}
+
+/* ═══════════════════════════════════════════════════════════
+   12 · BUSINESS SETUP PANEL
+   ═══════════════════════════════════════════════════════════ */
+function renderSnippet(){
+  const b = state.business || DEFAULT_BUSINESS;
+  const slug = (b.slug) || "yourbusiness";
+  $("#snippet").textContent =
+    slug + ": {\n" +
+    '  name: "' + b.name + '",\n' +
+    '  logo: "' + (b.logo || "assets/logo.png") + '",\n' +
+    '  primaryColor: "' + b.primaryColor + '",\n' +
+    '  googleReviewUrl: "' + b.googleReviewUrl + '"\n' +
+    "}";
+}
+
+function applyReviewUrl(){
+  const val = $("#reviewUrl").value.trim();
+  const ok = $("#setupOk");
+  if (!/^https:\/\/\S+$/i.test(val)){
+    ok.textContent = "Enter a full link starting with https://";
+    return;
+  }
+  state.business.googleReviewUrl = val;
+  renderSnippet();
+  ok.textContent = "Applied. The Google button now uses this link.";
+}
+
+/* ═══════════════════════════════════════════════════════════
+   13 · WIRING
+   ═══════════════════════════════════════════════════════════ */
+function init(){
+  initBusiness();
+  buildStars();
+  buildChips();
+  renderThumbs("");
+
+  ["#highText","#lowText","#midText"].forEach(s => $(s).addEventListener("input", validate));
+
+  $("#generateBtn").addEventListener("click", () => { state.variant = 0; generate(); });
+  $("#lowBtn").addEventListener("click", () => sendFeedback("low"));
+  $("#midBtn").addEventListener("click", () => sendFeedback("mid"));
+
+  $("#photoBtn").addEventListener("click", () => $("#photoInput").click());
+  $("#photoInput").addEventListener("change", e => { handlePhotoUpload(e.target.files); e.target.value = ""; });
+
+  $("#editBtn").addEventListener("click", () => {
+    const ta = $("#reviewText");
+    ta.focus();
+    ta.setSelectionRange(ta.value.length, ta.value.length);
+  });
+  $("#googleBtn").addEventListener("click", continueToGoogle);
+
+  $("#doneGoogle").addEventListener("click", () => {
+    const url = resolvedGoogleUrl();
+    if (url) window.open(url, "_blank", "noopener");
+    $("#doneActions").hidden = true;
+  });
+
+  $("#setupLink").addEventListener("click", e => {
+    e.preventDefault();
+    const p = $("#setup");
+    p.hidden = !p.hidden;
+    if (!p.hidden) $("#reviewUrl").focus();
+  });
+  $("#applyUrl").addEventListener("click", applyReviewUrl);
+  $("#reviewUrl").addEventListener("keydown", e => { if (e.key === "Enter") applyReviewUrl(); });
+}
+
+document.addEventListener("DOMContentLoaded", init);
+</script>
+</body>
+</html>
